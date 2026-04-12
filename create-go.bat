@@ -19,7 +19,6 @@ go mod init %NAME%
 echo Creating folder structure...
 
 mkdir cmd
-mkdir cmd\server
 
 mkdir internal
 mkdir internal\core
@@ -61,7 +60,7 @@ echo     })
 echo.
 echo     r.Run(":8080"^)
 echo }
-) > cmd\server\main.go
+) > cmd\main.go
 
 echo. > internal\core\service\.gitkeep
 echo. > internal\core\ports\.gitkeep
