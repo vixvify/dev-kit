@@ -1,7 +1,6 @@
 @echo off
 cd /d %~dp0
 
-:: รับ path
 if "%1"=="" (
   set /p TARGET=Enter target path: 
 ) else (
