@@ -1,33 +1,26 @@
 @echo off
 cd /d %~dp0
 
-:: รับ path
 if "%1"=="" (
   set /p TARGET=Enter target path: 
 ) else (
   set TARGET=%1
 )
 
-:: รับชื่อโปรเจค
 set /p NAME=Enter project name: 
 
-:: ไปที่ target
 cd /d %TARGET%
 
-:: สร้างโฟลเดอร์โปรเจค
 mkdir %NAME%
 cd %NAME%
 
-:: init go module
 go mod init %NAME%
 
 echo Creating folder structure...
 
-:: ===== cmd =====
 mkdir cmd
 mkdir cmd\server
 
-:: ===== internal =====
 mkdir internal
 mkdir internal\core
 mkdir internal\core\service
@@ -52,7 +45,6 @@ go get github.com/gin-gonic/gin
 go get gorm.io/gorm
 go get gorm.io/driver/postgres
 
-:: ===== create main.go =====
 (
 echo package main
 echo.
@@ -71,7 +63,6 @@ echo     r.Run(":8080"^)
 echo }
 ) > cmd\server\main.go
 
-:: ===== กัน folder ว่าง =====
 echo. > internal\core\service\.gitkeep
 echo. > internal\core\ports\.gitkeep
 echo. > internal\core\handler\.gitkeep
