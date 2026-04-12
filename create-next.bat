@@ -18,7 +18,7 @@ cd /d %TARGET%\%NAME%\src
 
 echo Creating folder structure...
 
-mkdir app
+if not exist app mkdir app
 mkdir components
 mkdir core
 mkdir infra
