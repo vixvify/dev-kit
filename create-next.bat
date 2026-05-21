@@ -1,24 +1,32 @@
 @echo off
-cd /d %~dp0
+setlocal
 
-if "%1"=="" (
-  set /p TARGET=Enter target path: 
-) else (
-  set TARGET=%1
+for /f "delims=" %%i in ('powershell -NoProfile -Command "Add-Type -AssemblyName System.Windows.Forms; $f=New-Object System.Windows.Forms.FolderBrowserDialog; $f.SelectedPath='C:\'; if($f.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK){$f.SelectedPath}"') do (
+    set TARGET=%%i
 )
 
-set /p NAME=Enter project name: 
+if not defined TARGET (
+    echo No folder selected.
+    pause
+    exit /b
+)
 
-cd /d %TARGET%
+echo Selected path: %TARGET%
+echo.
+
+set /p NAME=Enter project name:
+
+cd /d "%TARGET%"
 
 echo Creating Next.js app with src directory...
 call npx create-next-app@latest %NAME% --src-dir
 
-cd /d %TARGET%\%NAME%\src
+cd /d "%TARGET%\%NAME%\src"
 
 echo Creating folder structure...
 
 if not exist app mkdir app
+
 mkdir components
 mkdir core
 mkdir infra
@@ -43,4 +51,5 @@ echo.
 echo ✅ Project created at %TARGET%\%NAME%
 echo ✅ Using src/ structure
 echo ✅ Folder structure created successfully!
+
 pause
