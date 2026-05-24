@@ -37,6 +37,7 @@ mkdir utils
 mkdir core\constants
 mkdir core\domain
 mkdir core\ports
+mkdir core\service
 
 mkdir infra\interface
 mkdir infra\repositories
